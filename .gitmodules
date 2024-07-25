@@ -1,0 +1,6 @@
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/neyhden/nvim
+[submodule "ags"]
+	path = ags
+	url = https://github.com/neyhden/ags
