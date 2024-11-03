@@ -2,6 +2,9 @@
 
 !.gitignore
 
+!nvim/
 !nvim/**/*
+!hypr/
 !hypr/**/*
+!ags/
 !ags/**/*

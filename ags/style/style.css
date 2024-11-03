@@ -1,0 +1,211 @@
+* {
+  background: none;
+  color: white;
+  font-family: FiaCodeNerdFontMono;
+  font-size: 16px;
+  min-height: 0;
+  min-width: 0; }
+
+.slider_label {
+  min-width: 50px; }
+
+.popwindow {
+  padding: 8px; }
+
+.round-right {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; }
+
+.round-left {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px; }
+
+.round {
+  border-radius: 10px; }
+
+.bg {
+  background: #101010;
+  border: none; }
+
+.cell {
+  background: #151515;
+  border: none;
+  padding: 5px;
+  margin: 15px; }
+
+.cell-button {
+  background: #181818;
+  border: none;
+  padding: 5px;
+  margin: 15px;
+  min-width: 50px;
+  min-height: 50px; }
+
+.cell-button label {
+  font-size: 32px; }
+
+.margin-sides {
+  margin: 0 5px; }
+
+.margin {
+  margin: 5px 5px; }
+
+.title {
+  font-size: 52px; }
+
+.subtitle {
+  font-size: 31px;
+  color: gray; }
+
+image {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  -gtk-icon-shadow: none; }
+  image .image {
+    margin: 5px; }
+
+entry {
+  padding: 20px;
+  font-size: 32px; }
+
+flowbox button:focus {
+  background: #1a1a1a; }
+
+.player {
+  padding: 10px;
+  min-width: 350px; }
+  .player .img {
+    min-width: 100px;
+    min-height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 13px;
+    margin-right: 1em; }
+  .player .title {
+    font-size: 1.2em; }
+  .player .artist {
+    font-size: 1.1em;
+    color: #393939; }
+  .player scale.position {
+    padding: 0;
+    margin-bottom: .3em; }
+    .player scale.position trough {
+      min-height: 8px; }
+    .player scale.position highlight {
+      background-color: #ff5555; }
+    .player scale.position slider {
+      all: unset; }
+  .player button {
+    min-height: 1em;
+    min-width: 1em;
+    padding: .3em; }
+    .player button.play-pause {
+      margin: 0 .3em; }
+
+.bat-high label, .bat-high image {
+  color: lightgreen; }
+
+.bat-med label, .bat-med image {
+  color: yellow; }
+
+.bat-low label, .bat-low image {
+  color: orange; }
+
+.bat-crit label, .bat-crit image {
+  color: red; }
+
+separator {
+  margin: 8px 8px;
+  padding: 1px;
+  background: #393939; }
+
+button {
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+  margin: 0; }
+  button:hover label, button:hover image {
+    color: #ff5555; }
+  button:active label, button:active image {
+    color: #ff7e7e; }
+  button.toggle {
+    background: #151515;
+    margin: 10px;
+    padding: 20px; }
+    button.toggle:hover {
+      background: #242424; }
+    button.toggle:checked {
+      background: #ff5555; }
+      button.toggle:checked:hover {
+        background: #ff2222; }
+    button.toggle label, button.toggle image {
+      font-size: 32px;
+      color: white; }
+
+calendar {
+  border: none; }
+  calendar:selected {
+    color: red; }
+  calendar:indeterminate {
+    color: gray; }
+  calendar.button:hover {
+    color: #ffaaaa; }
+
+menu {
+  background: black; }
+  menu menuitem:hover {
+    background: #404045; }
+
+scale {
+  min-width: 300px; }
+  scale trough {
+    outline: none;
+    border: none;
+    background: #1f1f1f; }
+  scale slider {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none; }
+  scale highlight {
+    min-height: 10px;
+    background: #ff5555;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0; }
+
+.workspace-active, .workspace-idle, .workspace-empty {
+  border-radius: 0;
+  padding: 0;
+  font-size: 0; }
+  .workspace-active box, .workspace-idle box, .workspace-empty box {
+    margin: 0 5px;
+    border-radius: 50%;
+    transition-duration: 0.2s; }
+
+.workspace-idle:hover box, .workspace-empty:hover box {
+  background: #ffaaaa;
+  min-width: 13px;
+  border-radius: 25%; }
+
+.workspace-empty box {
+  background: gray;
+  min-width: 7px;
+  min-height: 7px;
+  margin: 0px 2px; }
+
+.workspace-idle box {
+  background: white;
+  min-width: 9px;
+  min-height: 9px; }
+
+.workspace-active box {
+  background: #ff5555;
+  min-width: 20px;
+  min-height: 10px;
+  border-radius: 25%; }
+
+tooltip {
+  background: #101010; }
