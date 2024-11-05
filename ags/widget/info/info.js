@@ -1,4 +1,5 @@
 const mpris = await Service.import("mpris")
+const notifications = await Service.import("notifications")
 
 import { Calendar } from "./widget/calendar.js"
 import { Media } from "./widget/mpris.js"
@@ -6,7 +7,16 @@ import { Notifications } from "./widget/notifications.js"
 import { TimeBox } from "./widget/time.js"
 
 const InfoToggle = () => Widget.Button({
-    child: Widget.Label().poll(1000, self => self.label = Utils.exec("date '+%H:%M'")),
+    // child: Widget.Label().poll(1000, self => self.label = Utils.exec("date '+%H:%M'")),
+    child: Widget.Box({
+        children: [
+            Widget.Icon({
+                visible: notifications.bind("notifications").as(n => n.length > 0),
+                icon: "bell-symbolic",
+            }),
+            Widget.Label().poll(1000, self => self.label = Utils.exec("date '+%H:%M'")),
+        ]
+    }),
     on_clicked: () => App.toggleWindow("info")
 })
 

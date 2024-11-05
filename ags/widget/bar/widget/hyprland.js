@@ -8,13 +8,31 @@ const Workspaces = () => Widget.EventBox({
     child: Widget.Box({
         class_name: "margin-sides",
         children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Widget.Button({
-            class_name: hyprland.active.workspace.bind("id").as(id => {
-                if (i === id) return "workspace-active"
-                if (!hyprland.getWorkspace(i)) return "workspace-empty"
-                if (!hyprland.getWorkspace(i)?.windows) return "workspace-empty"
-                return "workspace-idle"
-            }),
-            attribute: i,
+           // class_name: hyprland.active.workspace.bind("id").as(id => {
+           //     if (i === id) return "workspace-active"
+           //     if (!hyprland.getWorkspace(i)) return "workspace-empty"
+           //     if (!hyprland.getWorkspace(i)?.windows) return "workspace-empty"
+           //     return "workspace-idle"
+           // }),
+            setup: self => {
+                self.hook(hyprland, () => {
+                    if (hyprland.active.workspace.id === i) self.attribute.urgent = false
+                    self.class_name = "workspace-empty"
+                    if ((hyprland.getWorkspace(i)?.windows || 0) > 0) self.class_name = "workspace-idle"
+                    if (self.attribute.urgent) self.class_name = "workspace-urgent"
+                    if (hyprland.active.workspace.id === i) self.class_name = "workspace-active"
+                })
+                self.hook(hyprland, (_, adress) => {
+                    if (hyprland.getClient(adress)?.workspace.id == self.attribute.id) {
+                        self.attribute.urgent = true
+                        self.class_name = "workspace-urgent"
+                    }
+                }, "urgent-window")
+            },
+            attribute: {
+                id: i,
+                urgent: false,
+            },
             onClicked: () => dispatch(i),
             child: Widget.Box({
                 vpack: "center",
