@@ -90,6 +90,7 @@ function Player(player) {
     })
 
     const playPause = Widget.Button({
+        can_focus: false,
         class_name: "play-pause",
         on_clicked: () => player.playPause(),
         visible: player.bind("can_play"),
@@ -105,12 +106,14 @@ function Player(player) {
     })
 
     const prev = Widget.Button({
+        can_focus: false,
         on_clicked: () => player.previous(),
         visible: player.bind("can_go_prev"),
         child: Widget.Icon(PREV_ICON),
     })
 
     const next = Widget.Button({
+        can_focus: false,
         on_clicked: () => player.next(),
         visible: player.bind("can_go_next"),
         child: Widget.Icon(NEXT_ICON),

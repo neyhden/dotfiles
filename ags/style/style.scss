@@ -299,9 +299,9 @@ scale {
 
     &-urgent box {
         background: white;
-        min-width: 9px;
-        min-height: 9px;
-        border: 4px solid $highlight;
+        min-width: 6px;
+        min-height: 6px;
+        border: 3px solid $highlight;
     }
     
     &-idle box {
