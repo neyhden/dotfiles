@@ -1,6 +1,8 @@
 const mpris = await Service.import("mpris")
 const players = mpris.bind("players")
 
+const THUMBNAIL_FILE = `/home/${Utils.exec('whoami')}/.cache/ags/media/thumbnail`
+
 const FALLBACK_ICON = "audio-x-generic-symbolic"
 const PLAY_ICON = "media-playback-start-symbolic"
 const PAUSE_ICON = "media-playback-pause-symbolic"
@@ -20,9 +22,20 @@ function Player(player) {
     const img = Widget.Box({
         class_name: "img",
         vpack: "start",
-        css: player.bind("cover_path").transform(p => `
-            background-image: url('${p}');
-        `),
+        css: player.bind("metadata").transform(meta => {
+            let file = meta['xesam:url']?.substring(7)
+            if (file) {
+                Utils.exec(`bash -c "exiftool -picture -b ${file} > ${THUMBNAIL_FILE}"`)
+                return `
+                background-image: url('file://${THUMBNAIL_FILE}');
+                `
+            } else {
+                return `
+                background-image: url('${meta['mpris:artUrl']}');
+                `
+            }
+        }),
+        tooltip_markup: THUMBNAIL_FILE
     })
 
     const title = Widget.Label({
@@ -152,6 +165,7 @@ const Media = Widget.Box({
     css: "min-height: 2px; min-width: 2px;", // small hack to make it visible
     visible: players.as(p => p.length > 0),
     children: players.as(p => p.map(Player)),
+    setup: () => mpris.cacheCoverArt = false
 })
 
 export { Media }
