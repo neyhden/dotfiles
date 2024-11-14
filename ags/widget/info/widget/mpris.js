@@ -40,6 +40,7 @@ function Player(player) {
 
     const title = Widget.Label({
         wrap: true,
+        class_name: "title mpris-title",
         hpack: "center",
         justification: "center",
         label: player.bind("track_title"),
@@ -47,7 +48,7 @@ function Player(player) {
 
     const artist = Widget.Label({
         wrap: true,
-        class_name: "artist",
+        class_name: "artist mpris-title",
         justification: "center",
         hpack: "center",
         label: player.bind("track_artists").transform(a => a.join(", ")),
