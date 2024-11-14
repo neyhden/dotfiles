@@ -109,16 +109,14 @@ flowbox {
     }
 
     .title {
-        font-size: 20px;
+        font-size: 18px;
+        min-height: 60px;
     }
 
     .artist {
-        font-size: 16px;
+        font-size: 14px;
+        min-height: 40px;
         color: lighten($color: $bg-color, $amount: 16);
-    }
-
-    .mpris-title {
-        min-height: 50px;
     }
 
     scale.position {
