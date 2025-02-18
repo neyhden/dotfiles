@@ -16,7 +16,9 @@ return {
                         vim.cmd('Telescope find_files cwd=' .. path)
                     end,
                 },
-                mru = { limit = 10 },
+                mru = {
+                    limit = 10,
+                },
                 shortcut = {
                     {
                         desc = '󰊳 Update',

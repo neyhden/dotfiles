@@ -5,7 +5,12 @@
 
 !nvim/
 !nvim/**/*
+
 !hypr/
 !hypr/**/*
+
 !ags/
 !ags/**/*
+
+!agsv1/
+!agsv1/**/*

@@ -48,7 +48,7 @@ const InfoWindow = () => Widget.Window({
     }),
     setup: self => {
         self.keybind("Escape", () => App.closeWindow("info"))
-        self.keybind("space", () => mpris.players.forEach(plyr => plyr.playPause()))
+        self.keybind("space", () => mpris.players[0].playPause())
     }
 })
 
