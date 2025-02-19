@@ -5,7 +5,7 @@ import style from "./style/style.scss"
 
 App.start({
     css: style,
-    icons: "./icons/",
+    icons: "./icons",
     main() {
         Bar(0)
     },
