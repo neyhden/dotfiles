@@ -6,6 +6,9 @@
   min-height: 0;
   min-width: 0; }
 
+#bar {
+  border-radius: 0; }
+
 .slider_label {
   min-width: 50px; }
 
@@ -69,8 +72,13 @@ entry {
   padding: 20px;
   font-size: 32px; }
 
-flowbox button:focus {
-  background: #1a1a1a; }
+flowbox {
+  margin-top: 16px; }
+  flowbox flowboxchild button {
+    border-radius: 16px;
+    outline: none; }
+    flowbox flowboxchild button:focus {
+      background: #8e46f5; }
 
 .player {
   padding: 10px;
@@ -95,7 +103,7 @@ flowbox button:focus {
     .player scale.position trough {
       min-height: 8px; }
     .player scale.position highlight {
-      background-color: #ff5555; }
+      background-color: #BD93F9; }
     .player scale.position slider {
       all: unset; }
   .player button {
@@ -128,9 +136,9 @@ button {
   text-shadow: none;
   margin: 0; }
   button:hover label, button:hover image {
-    color: #ff5555; }
+    color: #BD93F9; }
   button:active label, button:active image {
-    color: #ff7e7e; }
+    color: #d5bafb; }
   button.toggle {
     background: #151515;
     margin: 10px;
@@ -138,9 +146,9 @@ button {
     button.toggle:hover {
       background: #242424; }
     button.toggle:checked {
-      background: #ff5555; }
+      background: #BD93F9; }
       button.toggle:checked:hover {
-        background: #ff2222; }
+        background: #9f63f6; }
     button.toggle label, button.toggle image {
       font-size: 32px;
       color: white; }
@@ -172,7 +180,7 @@ scale {
     outline: none; }
   scale highlight {
     min-height: 10px;
-    background: #ff5555;
+    background: #BD93F9;
     border: none;
     outline: none;
     margin: 0;
@@ -202,7 +210,7 @@ scale {
   background: white;
   min-width: 6px;
   min-height: 6px;
-  border: 3px solid #ff5555; }
+  border: 3px solid #BD93F9; }
 
 .workspace-idle box {
   background: white;
@@ -210,7 +218,7 @@ scale {
   min-height: 9px; }
 
 .workspace-active box {
-  background: #ff5555;
+  background: #BD93F9;
   min-width: 20px;
   min-height: 10px;
   border-radius: 25%; }

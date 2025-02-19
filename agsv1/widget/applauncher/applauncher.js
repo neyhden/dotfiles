@@ -64,10 +64,10 @@ const Applauncher = (width = 1000, height = 600) => {
     const entry = Widget.Entry({
         hexpand: true,
         on_accept: () => {
-            if (!list.get_child_at_pos(0, 0)) return
+            if (!list.get_child_at_index(0)) return
             App.toggleWindow(WINDOW_NAME)
             // @ts-ignore
-            list.get_child_at_pos(0, 0)?.child.attribute.app.launch()
+            list.get_child_at_index(0)?.child.attribute.app.launch()
         },
 
         // filter out the list

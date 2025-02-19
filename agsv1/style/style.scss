@@ -9,6 +9,10 @@
     min-width: 0;
 }
 
+#bar {
+    border-radius: 0;
+}
+
 .slider_label {
   min-width: 50px;
 }
@@ -90,8 +94,13 @@ entry {
 }
 
 flowbox {
-    button:focus {
-        background: lighten($color: $bg-color, $amount: 4);
+    margin-top: 16px;
+    & flowboxchild button {
+        border-radius: 16px;
+        outline: none;
+        &:focus {
+            background: darken($color: $highlight, $amount: 16);
+        }
     }
 }
 
