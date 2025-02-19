@@ -14,6 +14,7 @@ return {
 					"ts_ls",
 					"clangd",
                     "cssls",
+                    "css_variables",
                     "pyright",
                     "html",
                     "rust_analyzer",
@@ -50,6 +51,9 @@ return {
                 capabilities = capabilities,
             })
             lspconfig.solargraph.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.css_variables.setup({
                 capabilities = capabilities,
             })
 

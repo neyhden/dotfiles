@@ -3,6 +3,9 @@ return {
         "hrsh7th/cmp-nvim-lsp",
     },
     {
+        "mmolhoek/cmp-scss",
+    },
+    {
         "L3MON4D3/LuaSnip",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",
@@ -55,7 +58,18 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-                    { name = "luasnip" }
+                    { name = "luasnip" },
+                    {
+                        name = 'scss',
+                        option = {
+                            triggers = { "$" }, -- default value
+                            extension = ".scss", -- default value
+                            pattern = [=[\%(\s\|^\)\zs\$[[:alnum:]_\-0-9]*:\?]=], -- default value
+                            folders = {
+                                "style"
+                            },
+                        }
+                    }
 				}, {
 					{ name = "buffer" },
 				}),

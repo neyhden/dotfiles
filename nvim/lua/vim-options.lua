@@ -5,7 +5,7 @@ vim.cmd("set shiftwidth=4")
 vim.cmd("set noswapfile")
 vim.cmd("set number")
 vim.cmd("set cindent")
-vim.cmd("set cinoptions=2")
+vim.cmd("set cinoptions=4")
 vim.cmd("set fillchars=eob:\\ ")
 vim.cmd("tnoremap <Esc> <C-\\><C-n>")
 
@@ -28,3 +28,19 @@ vim.keymap.set({"n", "v"}, "ge", "]}", {})
 
 vim.g.mapleader = " "
 vim.opt.relativenumber = true
+
+-- Autocmds
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+autocmd('BufEnter', { -- Dont auto comment new lines 
+  pattern = '',
+  command = 'set fo-=c fo-=r fo-=o'
+})
+
+augroup('setIndent', { clear = true }) -- Set indentation to 4 spaces
+autocmd('Filetype', {
+  group = 'setIndent',
+  pattern = { 'css', 'scss', 'sass' },
+  command = 'setlocal shiftwidth=4 tabstop=4'
+})
