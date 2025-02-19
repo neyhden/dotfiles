@@ -37,8 +37,11 @@ return {
 					documentation = cmp.config.window.bordered(),
 				},
                 formatting = {
-                    format = function (_, vim_item)
+                    format = function (entry, vim_item)
                         vim_item.abbr = string.sub(vim_item.abbr, 1, 30)
+                        if entry.source.source.client ~= nil then
+                            vim_item.menu = entry.source.source.client.name
+                        end
                         return vim_item
                     end
                 },
