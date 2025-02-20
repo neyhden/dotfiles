@@ -8,7 +8,7 @@ window {
     background: $window-bg;
     color: $window-fg;
     border: $window-border;
-    border-radius: $border-radius-medium;
+    border-radius: $border-radius-small;
 }
 
 icon {
@@ -30,6 +30,12 @@ button {
     }
 }
 
+separator {
+    background: $window-bg-1;
+    margin: 6px;
+    min-width: 2px;
+}
+
 .battery {
     &.high {
         color: $color-ok;
@@ -39,5 +45,61 @@ button {
     }
     &.low {
         color: $color-error;
+    }
+}
+
+.workspace {
+    &-active, &-idle, &-empty, &-urgent {
+        font-size: 0;
+        border-radius: 0;
+        font-size: 0;
+        margin: 0 -5px;
+        
+        &:hover {
+            background: none;
+        }
+        box {
+            margin: 7px 4px;
+            border-radius: 50%;
+            transition-duration: 0.2s;
+        }
+    }
+
+    &-urgent, &-idle, &-empty {
+        &:hover box {
+            background: $color-primary-1;
+            min-width: 13px;
+            border-radius: 25%;
+        }
+    }
+
+    &-empty {
+        margin: 0 -9px;
+        box {
+            background: gray;
+            min-width: 6px;
+            min-height: 6px;
+            margin: 8px 4px;
+        }
+    }
+
+    &-urgent box {
+        background: white;
+        min-width: 6px;
+        min-height: 6px;
+        border: 3px solid $color-primary;
+    }
+    
+    &-idle box {
+        background: white;
+        min-width: 9px;
+        min-height: 9px;
+    }
+
+    &-active box {
+        background: $color-primary;
+        min-width: 20px;
+        min-height: 10px;
+        border-radius: 25%;
     }
 }

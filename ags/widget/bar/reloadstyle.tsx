@@ -6,9 +6,8 @@ const ReloadStyle = () => {
     const onClick = () => {
         const scss_file = "./style/style.scss"
         const css_file = "./style/style.css"
-        exec(`sassc ${scss_file} ${css_file}`)
+        exec(`sass ${scss_file} ${css_file}`)
         const css = readFile(css_file)
-        print(css)
         App.apply_css(css)
     }
 

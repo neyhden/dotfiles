@@ -8,19 +8,32 @@ const SysTray = () => {
     const tray = AstalTray.get_default()
 
     const TrayComponent = (item: AstalTray.TrayItem) => {
-        let menu = null 
-        if (item.menu_model) menu = Gtk.Menu.new_from_model(item.menu_model)
+
+        const openMenu = () => {
+            item.about_to_show()
+            const menu_model = item.get_menu_model()
+            if (!menu_model) return;
+            let menu = Gtk.Menu.new_from_model(menu_model)
+            menu.insert_action_group('dbusmenu', item.action_group)
+            menu.popup_at_pointer(null)
+        }
 
         const handleClick = (button: Button, event: Astal.ClickEvent) => {
+            button.set_state(Gtk.StateType.NORMAL)
             if (event.button == Astal.MouseButton.PRIMARY) {
-                item.activate(event.x, event.y)
+                if (item.is_menu) {
+                    openMenu()
+                } else {
+                    item.activate(0, 0)
+                }
             } else if (event.button == Astal.MouseButton.SECONDARY) {
-                menu?.popup_at_pointer(null)
+                openMenu()
             }
         }
 
         return (
             <button
+            can_focus={false}
             tooltip_markup={bind(item, "title")}
             onClick={handleClick}>
                 <icon gicon={item.gicon} />
@@ -30,7 +43,7 @@ const SysTray = () => {
 
     return (
         <box>
-            {bind(AstalTray.get_default(), "items").as(i => i.map(TrayComponent))}
+            {bind(tray, "items").as(i => i.map(TrayComponent))}
         </box>
     )
 }

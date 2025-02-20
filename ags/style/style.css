@@ -1,0 +1,93 @@
+* {
+  font-size: 16px;
+}
+
+window {
+  background: #101010;
+  color: #ffffff;
+  border: none;
+  border-radius: 0px;
+}
+
+icon {
+  margin-left: 6px;
+  margin-right: 6px;
+  font-size: 20px;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+button:hover {
+  background: #BD93F9;
+}
+button:active {
+  background: #DDB3FF;
+}
+
+separator {
+  background: #404040;
+  margin: 6px;
+  min-width: 2px;
+}
+
+.battery.high {
+  color: #90f090;
+}
+.battery.medium {
+  color: #f0c070;
+}
+.battery.low {
+  color: #f05050;
+}
+
+.workspace-active, .workspace-idle, .workspace-empty, .workspace-urgent {
+  font-size: 0;
+  border-radius: 0;
+  font-size: 0;
+  margin: 0 -5px;
+}
+.workspace-active:hover, .workspace-idle:hover, .workspace-empty:hover, .workspace-urgent:hover {
+  background: none;
+}
+.workspace-active box, .workspace-idle box, .workspace-empty box, .workspace-urgent box {
+  margin: 7px 4px;
+  border-radius: 50%;
+  transition-duration: 0.2s;
+}
+.workspace-urgent:hover box, .workspace-idle:hover box, .workspace-empty:hover box {
+  background: #DDB3FF;
+  min-width: 13px;
+  border-radius: 25%;
+}
+.workspace-empty {
+  margin: 0 -9px;
+}
+.workspace-empty box {
+  background: gray;
+  min-width: 6px;
+  min-height: 6px;
+  margin: 8px 4px;
+}
+.workspace-urgent box {
+  background: white;
+  min-width: 6px;
+  min-height: 6px;
+  border: 3px solid #BD93F9;
+}
+.workspace-idle box {
+  background: white;
+  min-width: 9px;
+  min-height: 9px;
+}
+.workspace-active box {
+  background: #BD93F9;
+  min-width: 20px;
+  min-height: 10px;
+  border-radius: 25%;
+}
+
+/*# sourceMappingURL=style.css.map */
