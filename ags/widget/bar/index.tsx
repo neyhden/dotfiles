@@ -1,16 +1,15 @@
-import AstalNetwork from "gi://AstalNetwork"
-
 import { App, Astal, astalify, Gtk } from "astal/gtk3"
 import { Variable } from "astal"
-import { bind } from "astal"
 
-import { SysTray } from "./systray"
+import { SysTray } from "./sysTray"
 import { Battery } from "./battery"
-import { ReloadStyle } from "./reloadstyle"
-import { ColorPicker } from "./colorpicker"
+import { ReloadStyle } from "./reloadStyle"
+import { ColorPicker } from "./colorPicker"
 import { Workspaces } from "./workspaces"
-import { CurrentWindow } from "./currentwindow"
+import { CurrentWindow } from "./currentWindow"
 import { NetworkIcon } from "./network"
+import { QuickMenuButton } from "./quickMenuButton"
+import { AppLauncherButton } from "./appLauncherButton"
 
 
 const time = Variable("").poll(1000, "date '+%H:%M'")
@@ -19,7 +18,6 @@ const Bar = (monitor: number) => {
     const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
     const { START, CENTER, END } = Gtk.Align
 
-    const net = AstalNetwork.get_default()
     const Separator = astalify(Gtk.Separator)
 
     
@@ -32,6 +30,7 @@ const Bar = (monitor: number) => {
         application={App}>
             <centerbox>
                 <box halign={START}>
+                    <AppLauncherButton />
                     <Workspaces />
                     <Separator orientation={Gtk.Orientation.VERTICAL} />
                     <SysTray/>
@@ -41,11 +40,14 @@ const Bar = (monitor: number) => {
 
                 <label halign={CENTER}>{time()}</label>
 
-                <box  halign={END}>
+                <box halign={END}>
                     <ReloadStyle />
                     <ColorPicker />
-                    <NetworkIcon />
                     <Battery />
+                    <QuickMenuButton>
+                        <NetworkIcon />
+                        <icon icon={'avatar-default-symbolic'} />
+                    </QuickMenuButton>
                 </box>
             </centerbox>
         </window>

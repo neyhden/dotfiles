@@ -9,7 +9,7 @@ const CurrentWindow = () => {
         <box>
             {
                 bind(hyprland, "focused_client").as(fc => {
-                    if (!fc) return
+                    if (!fc) return <></>
                     return <>
                         <icon icon={ bind(fc, "class") } />
                         <label label={ bind(fc, "initial_title") } />
