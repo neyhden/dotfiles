@@ -74,10 +74,10 @@ entry {
 
 flowbox {
   margin-top: 16px; }
-  flowbox flowboxchild button {
+  flowbox button {
     border-radius: 16px;
     outline: none; }
-    flowbox flowboxchild button:focus {
+    flowbox button:focus {
       background: #8e46f5; }
 
 .player {
@@ -156,11 +156,11 @@ button {
 calendar {
   border: none; }
   calendar:selected {
-    color: red; }
+    color: #BD93F9; }
   calendar:indeterminate {
     color: gray; }
   calendar.button:hover {
-    color: #ffaaaa; }
+    color: #cfb0fb; }
 
 menu {
   background: black; }
@@ -190,13 +190,15 @@ scale {
   border-radius: 0;
   padding: 0;
   font-size: 0; }
+  .workspace-active:hover, .workspace-idle:hover, .workspace-empty:hover, .workspace-urgent:hover {
+    background: none; }
   .workspace-active box, .workspace-idle box, .workspace-empty box, .workspace-urgent box {
     margin: 0 5px;
     border-radius: 50%;
     transition-duration: 0.2s; }
 
 .workspace-urgent:hover box, .workspace-idle:hover box, .workspace-empty:hover box {
-  background: #ffaaaa;
+  background: #dbc3fc;
   min-width: 13px;
   border-radius: 25%; }
 

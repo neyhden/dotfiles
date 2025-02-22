@@ -33,6 +33,7 @@ const Applauncher = (width = 1000, height = 600) => {
 
     let list = Widget.FlowBox({
         min_children_per_line: 10,
+        homogeneous: true,
         setup: self => {
             applications.forEach(app => self.add(app))
             self.show_all()
@@ -63,11 +64,19 @@ const Applauncher = (width = 1000, height = 600) => {
     // search entry
     const entry = Widget.Entry({
         hexpand: true,
-        on_accept: () => {
-            if (!list.get_child_at_index(0)) return
+        on_accept: (entry) => {
+            let flowchild
+            for (let child of list.get_children()) {
+                // @ts-ignore
+                if (child.child.attribute.app.match(entry.text ?? "")) {
+                    flowchild = child
+                    break
+                }
+            }
+            if (!flowchild) return
             App.toggleWindow(WINDOW_NAME)
             // @ts-ignore
-            list.get_child_at_index(0)?.child.attribute.app.launch()
+            flowchild.child.attribute.app.launch()
         },
 
         // filter out the list

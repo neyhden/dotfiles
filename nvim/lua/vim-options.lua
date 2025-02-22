@@ -34,13 +34,13 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 autocmd('BufEnter', { -- Dont auto comment new lines 
-  pattern = '',
-  command = 'set fo-=c fo-=r fo-=o'
+    pattern = '',
+    command = 'set fo-=c fo-=r fo-=o'
 })
 
 augroup('setIndent', { clear = true }) -- Set indentation to 4 spaces
 autocmd('Filetype', {
-  group = 'setIndent',
-  pattern = { 'css', 'scss', 'sass' },
-  command = 'setlocal shiftwidth=4 tabstop=4'
+    group = 'setIndent',
+    pattern = { 'css', 'scss', 'sass' },
+    command = 'setlocal shiftwidth=4 tabstop=4'
 })

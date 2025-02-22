@@ -95,7 +95,7 @@ entry {
 
 flowbox {
     margin-top: 16px;
-    & flowboxchild button {
+    & button {
         border-radius: 16px;
         outline: none;
         &:focus {
@@ -231,14 +231,14 @@ calendar {
     border: none;
 
     &:selected {
-        color: red;
+        color: $highlight;
     }
     &:indeterminate {
         color: gray;
     }
 
     &.button:hover {
-        color: #ffaaaa;
+        color: lighten($color: $highlight, $amount: 6);
     }
 }
 
@@ -283,6 +283,9 @@ scale {
         border-radius: 0;
         padding: 0;
         font-size: 0;
+        &:hover {
+            background: none;
+        }
 
         box {
             margin: 0 5px;
@@ -293,7 +296,7 @@ scale {
 
     &-urgent, &-idle, &-empty {
         &:hover box {
-            background: #ffaaaa;
+            background: lighten($color: $highlight, $amount: 10);
             min-width: 13px;
             border-radius: 25%;
         }

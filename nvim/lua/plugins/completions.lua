@@ -6,6 +6,17 @@ return {
         "mmolhoek/cmp-scss",
     },
     {
+        'brenoprata10/nvim-highlight-colors',
+        config = function ()
+            vim.opt.termguicolors = true
+            require('nvim-highlight-colors').setup({
+                render = 'virtual',
+                virtual_symbol_position = 'eol',
+                virtual_symbol_sufix = '',
+            })
+        end
+    },
+    {
         "L3MON4D3/LuaSnip",
         dependencies = {
             "saadparwaiz1/cmp_luasnip",

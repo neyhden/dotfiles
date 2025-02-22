@@ -14,11 +14,11 @@ return {
 					"ts_ls",
 					"clangd",
                     "cssls",
-                    "css_variables",
                     "pyright",
                     "html",
                     "rust_analyzer",
                     "solargraph",
+                    "somesass_ls",
 				},
 			})
 		end,
@@ -53,7 +53,7 @@ return {
             lspconfig.solargraph.setup({
                 capabilities = capabilities,
             })
-            lspconfig.css_variables.setup({
+            lspconfig.somesass_ls.setup({
                 capabilities = capabilities,
             })
 
