@@ -3,6 +3,7 @@ import Astal from "gi://Astal"
 
 import { EventBox } from "astal/gtk3/widget"
 import { bind, Variable } from "astal"
+import { Gtk } from "astal/gtk3"
 
 const Workspaces = () => {
     const hyprland = AstalHyprland.get_default()
@@ -49,9 +50,14 @@ const Workspaces = () => {
     return (
         <eventbox
         onScroll={scrollHandler}>
-            <box className={"workspaces"}>
-                {Array.from({length:10}, (_, i) => i+1).map(workspace)}
-            </box>
+            <centerbox
+            className={"workspaces"}>
+                <box />
+                <box halign={Gtk.Align.CENTER}>
+                    {Array.from({length:10}, (_, i) => i+1).map(workspace)}
+                </box>
+                <box />
+            </centerbox>
         </eventbox>
     )
 }

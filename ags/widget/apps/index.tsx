@@ -38,7 +38,7 @@ const AppLauncher = () => {
             tooltipText={
                 "Entry: "+ app.entry +
                 "\nExec: " + app.executable +
-                "\nScore: " + apps.fuzzy_score(entry.text, app).toFixed(2) +
+                // "\nScore: " + apps.fuzzy_score(entry.text, app).toFixed(2) +
                 "\nFrequency: " + app.frequency
             }>
                 <box vertical={true} >
@@ -56,9 +56,8 @@ const AppLauncher = () => {
     }
 
     const reload = () => {
-        entry.text = ""
         apps.reload()
-        appList.set(apps.fuzzy_query(""))
+        entry.text = ""
     }
 
     const EntryActivate = () => {
@@ -118,7 +117,9 @@ const AppLauncher = () => {
                             })
                             list.map(ApplicationItem).forEach(i => self.add(i))
                             self.show_all()
-                            self.foreach(item => item.can_focus = false)
+                            self.foreach(item => {
+                                item.can_focus = false
+                            })
                         })
                     }} />
 
