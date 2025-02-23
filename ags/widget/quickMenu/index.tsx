@@ -1,4 +1,5 @@
 import { Astal, App, Gdk } from "astal/gtk3"
+import { TouchpadToggle, VpnToggle, WifiToggle } from "./toggles"
 
 const QuickMenu = () => {
     const { TOP, RIGHT } = Astal.WindowAnchor
@@ -19,9 +20,11 @@ const QuickMenu = () => {
         keymode={Astal.Keymode.ON_DEMAND}
         margin={4}
         onKeyPressEvent={handleKeyPress}>
-            <button onClicked={print.bind(null, "menu")}>
-                QUIECK MENU
-            </button>
+            <box>
+                <TouchpadToggle />
+                <VpnToggle />
+                <WifiToggle />
+            </box>
         </window>
     )
 }
