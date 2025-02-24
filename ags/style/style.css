@@ -8,15 +8,37 @@ window {
   border: none;
   border-radius: 0px;
 }
+window.app_launcher {
+  border-radius: 30px;
+  border: 2px solid #BD93F9;
+  outline: none;
+}
 window.app_launcher flowbox {
   min-width: 1200px;
   min-height: 600px;
+  outline: none;
+  border: none;
+}
+window.app_launcher scrollable {
+  border: none;
+  outline: none;
+  margin: 15px;
+}
+window.app_launcher scrollable overshoot {
+  outline: none;
+}
+window.app_launcher scrollable undershoot {
+  outline: none;
 }
 window.app_launcher icon {
   font-size: 64px;
 }
 window.app_launcher entry {
-  font-size: 38px;
+  padding: 15px;
+  border-radius: 30px;
+  margin: 10px;
+  font-size: 40px;
+  min-height: 60px;
 }
 
 icon {

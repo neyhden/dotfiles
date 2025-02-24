@@ -58,6 +58,7 @@ const AppLauncher = () => {
     const reload = () => {
         apps.reload()
         entry.text = ""
+        entry.grab_focus()
     }
 
     const EntryActivate = () => {
@@ -93,6 +94,7 @@ const AppLauncher = () => {
                     onActivate={EntryActivate}
                     onChanged={EntryChange} />
                     <button
+                    visible={false}
                     onClicked={reload}
                     canFocus={false}>
                         <icon icon={"view-refresh-symbolic"} />

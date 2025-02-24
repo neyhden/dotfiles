@@ -10,7 +10,7 @@ const QuickMenuButton = ({ children }: Props) => {
     }
 
     return (
-        <button onClicked={onClickHandler}>
+        <button className={"subtle"} onClicked={onClickHandler}>
             <box>
                 {children}
             </box>

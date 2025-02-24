@@ -4,6 +4,12 @@
     font-size: $font-small;
 }
 
+.error {
+    color: $color-error;
+    box-shadow: none;
+    background: none;
+}
+
 window {
     background: $window-bg;
     color: $window-fg;
@@ -11,15 +17,94 @@ window {
     border-radius: $border-radius-small;
 
     &.app_launcher {
+        background: none;
+        border: none;
+        & > box {
+            background: $window-bg;
+            border-radius: 30px;
+            border: 2px solid $color-primary;
+            padding: 15px;
+        }
         & flowbox {
             min-width: 1200px;
             min-height: 600px;
+            outline: none;
+            border: none;
+        }
+        & scrollable {
+            border: none;
+            outline: none;
+            margin: 15px;
+            
+            & overshoot {
+                outline: none;
+            }
+            & undershoot {
+                outline: none;
+            }
         }
         & icon {
             font-size: 64px;
         }
         & entry {
-            font-size: 38px;
+            padding: 15px;
+            border-radius: 30px;
+            margin: 10px;
+            font-size: 40px;
+            min-height: 60px;
+        }
+    }
+
+    &.quick_menu {
+        background: none;
+        outline: none;
+        & > box {
+            padding: 15px;
+            border-radius: 30px;
+            background: $window-bg;
+            border: 2px solid $color-primary;
+        }
+        & button {
+            &.toggle {
+                margin: 10px;
+                padding: 10px;
+                border-radius: 15px;
+                & icon {
+                    font-size: 64px;
+                }
+            }
+            &.subtle {
+                border-radius: 5px;
+                & icon {
+                    font-size: 32px;
+                }
+            }
+        }
+        & scrollable {
+            border: none;
+            outline: none;
+            margin: 15px;
+            
+            & overshoot {
+                outline: none;
+            }
+            & undershoot {
+                outline: none;
+            }
+        }
+        & entry {
+            padding: 15px;
+            border-radius: 30px;
+            margin: 10px;
+            font-size: 40px;
+            min-height: 60px;
+        }
+        & scale {
+            min-width: 300px;
+            & + label {
+                font-size: $icon-size;
+                min-width: 60px;
+            }
         }
     }
 }
@@ -35,6 +120,15 @@ button {
     border: none;
     outline: none;
     box-shadow: none;
+    &.subtle {
+        &:hover {
+            background: $window-bg-1;
+            border-radius: 15px;
+        }
+    }
+    & .slider_icon {
+        font-size: $icon-size;
+    }
     &:hover {
         background: $color-primary;
     }
@@ -44,6 +138,9 @@ button {
     &.toggle {
         &.active {
             background: $color-secundary;
+            &:hover {
+                background: $color-secundary-1;
+            }
         }
     }
 }
@@ -52,6 +149,7 @@ separator {
     background: $window-bg-1;
     margin: 6px;
     min-width: 2px;
+    min-height: 2px;
 }
 
 .battery {
