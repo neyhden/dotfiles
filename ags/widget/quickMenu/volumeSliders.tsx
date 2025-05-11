@@ -42,4 +42,15 @@ const MicSlider = () => {
     iconName={ bind(wp.defaultMicrophone, "volumeIcon") } />
 }
 
-export { SpeakerSlider, MicSlider }
+const StreamSlider = (stream: AstalWp.Endpoint) => {
+    return <IconSlider 
+    name={stream.description}
+    vertical={true}
+    clickHandler={() => stream.mute = !stream.mute}
+    valueString={ bind(stream, "volume").as(v => (v*100).toFixed(0) + '%') }
+    value={ bind(stream, "volume") }
+    changeHandler={slider => stream.volume = slider.value}
+    iconName={ bind(stream, "volumeIcon") }/>
+}
+
+export { SpeakerSlider, MicSlider, StreamSlider }

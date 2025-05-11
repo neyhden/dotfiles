@@ -39,9 +39,14 @@ autocmd('BufEnter', { -- Dont auto comment new lines
     command = 'set fo-=c fo-=r fo-=o'
 })
 
-augroup('setIndent', { clear = true }) -- Set indentation to 4 spaces
+augroup('setIndent', { clear = true }) -- Set indentation depending on filetype
 autocmd('Filetype', {
     group = 'setIndent',
     pattern = { 'css', 'scss', 'sass' },
-    command = 'setlocal shiftwidth=4 tabstop=4'
+    command = 'setlocal shiftwidth=4 tabstop=4 softtabstop=4 cinoptions=4'
+})
+autocmd('Filetype', {
+    group = 'setIndent',
+    pattern = { 'dart' },
+    command = 'setlocal shiftwidth=2 tabstop=2 softtabstop=2 cinoptions=2'
 })

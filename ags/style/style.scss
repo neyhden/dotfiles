@@ -4,10 +4,30 @@
     font-size: $font-small;
 }
 
+.subindex {
+    background: $window-bg-1;
+    border-radius: 10px;
+}
+
 .error {
     color: $color-error;
     box-shadow: none;
     background: none;
+}
+
+.action {
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 50%;
+    margin: 5px;
+    background: $window-bg-1;
+    & icon {
+        font-size: 32px;
+    }
+    &:hover {
+        border-radius: 50%;
+        background: $window-bg-2;
+    }
 }
 
 window {
@@ -15,6 +35,74 @@ window {
     color: $window-fg;
     border: $window-border;
     border-radius: $border-radius-small;
+
+    &.bar {
+        button:hover {
+            background: $window-bg-2;
+            border-radius: 15px;
+        }
+
+        button.workspace {
+            &-active, &-idle, &-empty, &-urgent {
+                border-radius: 0;
+                padding: 0;
+                font-size: 0;
+                &:hover {
+                    background: none;
+                }
+
+                box {
+                    margin: 0 5px;
+                    border-radius: 50%;
+                    transition-duration: 0.2s;
+                }
+            }
+
+            &-urgent, &-idle, &-empty {
+                &:hover box {
+                    background: $color-primary-1;
+                }
+            }
+
+            &-empty{
+                min-width: 11px;
+                &:hover box {
+                    margin: 8px 3px;
+                    border-radius: 25%;
+                }
+                box {
+                    background: gray;
+                    margin: 13px 3px;
+                }
+            }
+
+            &-urgent box {
+                background: white;
+                min-width: 6px;
+                margin: 9px 4px;
+                border: 4px solid $color-secundary;
+            }
+            
+            &-idle {
+                &:hover box {
+                    margin: 6px 4px;
+                    border-radius: 25%;
+                }
+                & box {
+                    background: white;
+                    min-width: 11px;
+                    margin: 10px 4px;
+                }
+            }
+
+            &-active box {
+                background: $color-primary;
+                min-width: 30px;
+                border-radius: 5px;
+                margin: 10px 3px;
+            }
+        }
+    }
 
     &.app_launcher {
         background: none;
@@ -47,6 +135,10 @@ window {
             font-size: 64px;
         }
         & entry {
+            &:focus {
+                border: none;
+                border: 1px solid $color-primary;
+            }
             padding: 15px;
             border-radius: 30px;
             margin: 10px;
@@ -74,7 +166,6 @@ window {
                 }
             }
             &.subtle {
-                border-radius: 5px;
                 & icon {
                     font-size: 32px;
                 }
@@ -92,15 +183,8 @@ window {
                 outline: none;
             }
         }
-        & entry {
-            padding: 15px;
-            border-radius: 30px;
-            margin: 10px;
-            font-size: 40px;
-            min-height: 60px;
-        }
         & scale {
-            min-width: 300px;
+            margin: 20px 0px;
             & + label {
                 font-size: $icon-size;
                 min-width: 60px;
@@ -108,6 +192,38 @@ window {
         }
     }
 }
+
+scale {
+    &.horizontal {
+        min-width: 300px;
+    }
+    &.vertical {
+        min-height: 150px;
+    }
+
+    trough {
+        outline: none;
+        border: none;
+        background: $window-bg-2;
+    }
+
+    slider {
+        background: none;
+        border: none;
+        box-shadow: none;
+        outline: none;
+    }
+
+    highlight {
+        min-height: 10px;
+        background: $color-primary;
+        border: none;
+        outline: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
 
 icon {
     margin-left: $icon-margin;
@@ -122,8 +238,7 @@ button {
     box-shadow: none;
     &.subtle {
         &:hover {
-            background: $window-bg-1;
-            border-radius: 15px;
+            background: $window-bg-2;
         }
     }
     & .slider_icon {
@@ -145,8 +260,12 @@ button {
     }
 }
 
+.slider_icon {
+    font-size: 8px;
+}
+
 separator {
-    background: $window-bg-1;
+    background: $window-bg-2;
     margin: 6px;
     min-width: 2px;
     min-height: 2px;
@@ -166,66 +285,6 @@ separator {
 
 .workspaces {
     min-width: 220px;
-}
-.workspace {
-    &-active, &-idle, &-empty, &-urgent {
-        border-radius: 0;
-        padding: 0;
-        font-size: 0;
-        &:hover {
-            background: none;
-        }
-
-        box {
-            margin: 0 5px;
-            border-radius: 50%;
-            transition-duration: 0.2s;
-        }
-    }
-
-    &-urgent, &-idle, &-empty {
-        &:hover box {
-            background: $color-primary-1;
-        }
-    }
-
-    &-empty{
-        min-width: 11px;
-        &:hover box {
-            margin: 8px 3px;
-            border-radius: 25%;
-        }
-        box {
-            background: gray;
-            margin: 13px 3px;
-        }
-    }
-
-    &-urgent box {
-        background: white;
-        min-width: 6px;
-        margin: 9px 4px;
-        border: 4px solid $color-secundary;
-    }
-    
-    &-idle {
-        &:hover box {
-            margin: 6px 4px;
-            border-radius: 25%;
-        }
-        & box {
-            background: white;
-            min-width: 11px;
-            margin: 10px 4px;
-        }
-    }
-
-    &-active box {
-        background: $color-primary;
-        min-width: 30px;
-        border-radius: 5px;
-        margin: 10px 3px;
-    }
 }
 
 flowboxchild {

@@ -36,8 +36,8 @@ return {
                         desc = ' Config',
                         group = 'Number',
                         action = function ()
-                            vim.cmd('cd ~/.config/nvim')
-                            vim.cmd('Telescope find_files cwd=~/.config/nvim')
+                            vim.cmd('cd ~/.config')
+                            vim.cmd('Neotree')
                         end,
                         key = 'c',
                     },

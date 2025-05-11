@@ -4,7 +4,7 @@ import { Variable } from "astal"
 import { Separator } from "../../custom/separator"
 
 import { SysTray } from "./sysTray"
-import { Battery } from "./battery"
+import { Battery, BatteryIcon } from "./battery"
 import { ColorPicker } from "./colorPicker"
 import { Workspaces } from "./workspaces"
 import { CurrentWindow } from "./currentWindow"
@@ -22,6 +22,7 @@ const Bar = (monitor: number) => {
     
     return (
         <window
+        name={"bar"}
         className={"bar"}
         monitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
@@ -46,7 +47,6 @@ const Bar = (monitor: number) => {
                         <MicIcon />
                         <SpeakerIcon />
                         <NetworkIcon />
-                        <icon icon={'avatar-default-symbolic'} />
                     </QuickMenuButton>
                 </box>
             </centerbox>
