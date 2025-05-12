@@ -38,7 +38,11 @@ const Bar = (monitor: number) => {
                     <CurrentWindow />
                 </box>
 
-                <label halign={CENTER}>{time()}</label>
+                <button
+                    onClick={() => App.toggle_window("calendar")}
+                >
+                    <label halign={CENTER}>{time()}</label>
+                </button>
 
                 <box halign={END}>
                     <ColorPicker />
