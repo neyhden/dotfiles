@@ -22,7 +22,7 @@ return {
 
     -- Themery block
 -- This block will be replaced by Themery.
-vim.cmd("colorscheme dracula-soft")
+vim.cmd("colorscheme nordic")
 vim.g.theme_id = 3
 -- end themery block
   end

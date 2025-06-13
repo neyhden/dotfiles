@@ -1,0 +1,108 @@
+;; VARIABLES
+(defpoll time :interval "1s" :initial "00:00" "date +%H:%M")
+(defpoll volume :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+
+(defvar rev-volume false)
+
+;; WIDGETS
+
+(defwidget clock []
+  (box
+    :orientation "horizontal"
+    :halign "center"
+    (label
+      :text "${time}"
+    )
+  )
+)
+
+(defwidget color-picker []
+  (button
+    :onclick "hyprpicker -a -n &"
+    ""
+  )
+)
+
+(defwidget battery []
+  (button
+    :class "battery"
+    :tooltip "Battery: ${round(EWW_BATTERY.total_avg, 0)}%"
+    (circular-progress
+      :start-at 75
+      :value {round(EWW_BATTERY.total_avg, 0)}
+      :thickness 3
+      :clockwise false
+      "󱐋"
+    )
+  )
+)
+
+(defwidget memory []
+  (button
+    :class "memory"
+    :tooltip "Memory: ${round(EWW_RAM.used_mem_perc, 0)}%"
+    (circular-progress
+      :start-at 75
+      :value {EWW_RAM.used_mem_perc}
+      :thickness 3
+      :clockwise false
+      "󰍛"
+    )
+  )
+)
+
+(defwidget volume []
+  (eventbox
+    :class "volume"
+    :onhover "${EWW_CMD} update rev-volume=true"
+    :onhoverlost "${EWW_CMD} update rev-volume=false"
+    (box
+      :space-evenly false
+      :spacing 6
+      (button
+        (image
+          :icon "audio-volume-high-symbolic"
+        )
+      )
+      (revealer
+        :reveal rev-volume
+        :transition "slideright"
+        (scale
+          :round-digits 0
+          :min 0
+          :max 100
+          :draw-value false
+          :value volume
+          :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        )
+      )
+    )
+  )
+)
+
+;; BAR
+
+(defwidget bar []
+  (centerbox
+    :class "bar"
+    (box
+      :class "bar-box"
+      :space-evenly false
+      :halign "start"
+      (volume)
+    )
+    (box
+      :class "bar-box"
+      (clock)
+    )
+    (box
+      :class "bar-box"
+      :space-evenly false
+      :spacing 16
+      :halign "end"
+      (color-picker)
+      (battery)
+      (memory)
+    )
+  )
+)

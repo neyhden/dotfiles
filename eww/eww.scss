@@ -1,3 +1,58 @@
+$base-bg: #242933; 
+$base-color: #F7886D;
+$ok-color: #A3BE8C; 
+$warn-color: #E8CB89; 
+
 * {
-    font-size: 20;
+    all: unset;
+    font-size: 22px;
+}
+
+.battery {
+    color: $ok-color;
+    circular-progress {
+        label {
+            font-size: 22px;
+            margin: 8px;
+        }
+    }
+}
+
+.memory {
+    color: $warn-color;
+    circular-progress {
+        label {
+            font-size: 16px;
+            margin: 10px 10px 10px 9px;
+        }
+    }
+}
+
+.volume {
+    revealer {
+        border-radius: 3px;
+    }
+    scale {
+        min-width: 200px;
+        contents {
+            trough {
+                min-height: 8px;
+                background: transparentize($color: #000000, $amount: 0.4);
+                border-radius: 3px;
+                slider {
+                    border-radius: 3px;
+                }
+                highlight {
+                    background: $base-color;
+                    border-radius: 3px;
+                }
+            }
+        }
+    }
+}
+
+.bar {
+    background: $base-bg;
+    border-radius: 10px;
+    padding: 4px;
 }
