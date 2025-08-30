@@ -1,11 +1,8 @@
-$base-bg: #242933; 
-$base-color: #F7886D;
-$ok-color: #A3BE8C; 
-$warn-color: #E8CB89; 
+@import 'theme.scss';
 
 * {
     all: unset;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .battery {
@@ -29,30 +26,49 @@ $warn-color: #E8CB89;
 }
 
 .volume {
-    revealer {
-        border-radius: 3px;
+    color: #a576fc;
+    border-bottom: 2px solid #a576fc;
+}
+
+.brightness {
+    color: #fcf950;
+    border-bottom: 2px solid #fcf950;
+}
+
+.battery {
+    color: #90F090;
+    border-bottom: 2px solid #90F090;
+}
+
+.memory {
+    color: #DEC284;
+    border-bottom: 2px solid #DEC284;
+}
+
+.cpu {
+    color: #F7886D;
+    border-bottom: 2px solid #F7886D;
+}
+
+.baricon {
+    font-size: 22px;
+    padding-right: 6px;
+}
+
+.barbutton {
+    border-radius: 0px;
+    transition-duration: 200ms;
+    &:hover {
+        border-bottom: 1px solid white;
+        border-top: 1px solid white;
     }
-    scale {
-        min-width: 200px;
-        contents {
-            trough {
-                min-height: 8px;
-                background: transparentize($color: #000000, $amount: 0.4);
-                border-radius: 3px;
-                slider {
-                    border-radius: 3px;
-                }
-                highlight {
-                    background: $base-color;
-                    border-radius: 3px;
-                }
-            }
-        }
+    &:active {
+        border-bottom: 3px solid white;
+        border-top: 3px solid white;
     }
 }
 
 .bar {
     background: $base-bg;
-    border-radius: 10px;
-    padding: 4px;
+    padding: 2px;
 }

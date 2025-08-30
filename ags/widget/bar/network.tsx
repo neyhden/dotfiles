@@ -1,4 +1,4 @@
-import { bind, exec, Gio, Variable } from "astal";
+import { bind, exec, Variable } from "astal";
 import AstalNetwork from "gi://AstalNetwork";
 
 const NetworkIcon = () => {

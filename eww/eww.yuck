@@ -1,10 +1,147 @@
-(include "bar.yuck")
+(defvar log "")
+(defwidget log []
+  "${log}"
+)
+
+(defwidget barbutton [?onclick]
+  (button
+    :class "barbutton"
+    :onclick onclick
+    (box
+      (children)
+    )
+  )
+)
+
+(defpoll time :interval "1s" :initial "00:00" "date +%H:%M")
+(defwidget clock []
+  (barbutton
+    (label
+      :text "${time}"
+    )
+  )
+)
+
+(defwidget color-picker []
+  (barbutton
+    :class "baricon"
+    :onclick "hyprpicker -a -n &"
+    " "
+  )
+)
+
+(defwidget metric [label value showvalue ?onscrollup ?onscrolldown ?onclick ?onhover ?onhoverlost ?class]
+  (eventbox
+    :class "metric ${class}"
+    :onscroll "[[ {} == 'up' ]] && $(${onscrollup}) || $(${onscrolldown})"
+    :onclick onclick
+    :onhover onhover
+    :onhoverlost onhoverlost
+    (box
+      :space-evenly false
+      :spacing 6
+      (label
+        :class "baricon"
+        :text label
+      )
+      (revealer
+        :reveal showvalue
+        :transition "slideright"
+        (label
+          :text value
+        )
+      )
+    )
+  )
+)
+
+(defvar get-volume "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 11-12")
+(defpoll volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 11-12")
+(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED")
+(defwidget volume []
+  (metric
+    :class "volume"
+    :value "${volume}%"
+    :showvalue true
+    :label {muted == 1 ? "󰖁" : "󰕾"}
+    :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    :onscrollup "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
+    :onscrolldown "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+  )
+)
+
+(deflisten brightness "./scripts.sh brightness")
+(defwidget brightness []
+  (metric
+    :class "brightness"
+    :value "${brightness}%"
+    :showvalue true
+    :label "󰃟"
+    :onscrollup "brightnessctl set 5%+ > /dev/null 2> /dev/null"
+    :onscrolldown "brightnessctl set 5%-"
+  )
+)
+
+(defpoll charging :interval "3s" "cat /sys/class/power_supply/ADP1/online")
+(defwidget battery []
+  (metric
+    :class "battery"
+    :value "${round(EWW_BATTERY.total_avg, 0)}%"
+    :showvalue true
+    :label {charging == 1 ? "󱐋" : "󰁾"}
+  )
+)
+
+(defwidget memory []
+  (metric
+    :class "memory"
+    :value "${round(EWW_RAM.used_mem_perc, 0)}%"
+    :showvalue true
+    :label "󰘚"
+  )
+)
+
+(defwidget cpu []
+  (metric
+    :class "cpu"
+    :value "${round(EWW_CPU.avg, 0)}%"
+    :showvalue true
+    :label "󰍛"
+  )
+)
+
+(defwidget bar []
+  (centerbox
+    :class "bar"
+    (box
+      :class "bar-box"
+      :space-evenly false
+      :halign "start"
+      (log)
+    )
+    (box
+      :class "bar-box"
+      (clock)
+    )
+    (box
+      :class "bar-box"
+      :space-evenly false
+      :spacing 16
+      :halign "end"
+      (color-picker)
+      (volume)
+      (battery)
+      (brightness)
+      (memory)
+      (cpu)
+    )
+  )
+)
 
 (defwindow bar
   :monitor 0
   :geometry (geometry
-    :y "1%"
-    :width "99%"
+    :width "100%"
     :anchor "top center")
   :stacking "fg"
   :windowtype "dock"
