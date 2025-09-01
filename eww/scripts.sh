@@ -30,15 +30,15 @@ while [[ $# -gt 0 ]]; do
                 inotifywait -q /proc/${SUB_PS}/fd/0 > /dev/null
             done
             ;;
-        "listenfile")
-            while true; do
-                inotifywait -q -e MODIFY "$2" > /dev/null
-                cat "$2"
-            done
-            exit 0
-            ;;
-        "bup")
-            brightnessctl set 5%+
+        "touchpad")
+            TOUCHPAD_PATH=/tmp/touchpad_off
+            if [ -f $TOUCHPAD_PATH ]; then
+                rm $TOUCHPAD_PATH
+                hyprctl keyword 'device[cust0001:00-04f3:30fa-touchpad]:enabled' true
+            else
+                touch $TOUCHPAD_PATH
+                hyprctl keyword 'device[cust0001:00-04f3:30fa-touchpad]:enabled' false
+            fi
             exit 0
             ;;
         *) echo "not a command"

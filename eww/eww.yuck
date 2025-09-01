@@ -13,13 +13,17 @@
   )
 )
 
-(defpoll time :interval "1s" :initial "00:00" "date +%H:%M")
+(defpoll time :interval "1s" :initial "00 : 00 : 00" "date +'%H : %M : %S'")
 (defwidget clock []
   (barbutton
     (label
       :text "${time}"
     )
   )
+)
+
+(defwidget workspaces []
+  ""
 )
 
 (defwidget color-picker []
@@ -30,9 +34,44 @@
   )
 )
 
+(defwidget toggle-touchpad []
+  (barbutton
+    :onclick "./scripts.sh touchpad"
+    (image
+      :icon "input-touchpad-symbolic"
+    )
+  )
+)
+
+(defvar reveal-tools false)
+(defwidget tools []
+  (eventbox
+    :onhover "eww update reveal-tools=true"
+    :onhoverlost "eww update reveal-tools=false"
+    (box
+      :spacing 30
+      :space-evenly false
+      (label
+        :text "" 
+      )
+      (revealer
+        :transition "slideright"
+        :duration "200ms"
+        :reveal reveal-tools
+        (box
+          :spacing 10
+          :space-evenly false
+          (color-picker)
+          (toggle-touchpad)
+        )
+      )
+    )
+  )
+)
+
 (defwidget metric [label value showvalue ?onscrollup ?onscrolldown ?onclick ?onhover ?onhoverlost ?class]
   (eventbox
-    :class "metric ${class}"
+    :class "metric ${class} ${onclick == "" ? "" : "barbutton"}"
     :onscroll "[[ {} == 'up' ]] && $(${onscrollup}) || $(${onscrolldown})"
     :onclick onclick
     :onhover onhover
@@ -55,18 +94,31 @@
   )
 )
 
-(defvar get-volume "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 11-12")
-(defpoll volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 11-12")
-(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED")
+(defpoll volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f 2 | sed 's/0\\.\\|\\.\\|0\\.0//'")
+(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED; true")
 (defwidget volume []
   (metric
     :class "volume"
     :value "${volume}%"
-    :showvalue true
-    :label {muted == 1 ? "󰖁" : "󰕾"}
+    :showvalue {muted == 0}
+    :label {muted == 1 ? "" : ""}
     :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     :onscrollup "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
     :onscrolldown "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+  )
+)
+
+(defpoll mic-volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d ' ' -f 2 | sed 's/0\\.\\|\\.\\|0\\.0//'")
+(defpoll mic-muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED; true")
+(defwidget microphone []
+  (metric
+    :class "microphone"
+    :value "${mic-volume}%"
+    :showvalue {mic-muted == 0}
+    :label {mic-muted == 1 ? "" : ""}
+    :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    :onscrollup "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 2%+"
+    :onscrolldown "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 2%-"
   )
 )
 
@@ -116,7 +168,9 @@
     (box
       :class "bar-box"
       :space-evenly false
+      :spacing 6
       :halign "start"
+      (tools)
       (log)
     )
     (box
@@ -128,8 +182,8 @@
       :space-evenly false
       :spacing 16
       :halign "end"
-      (color-picker)
       (volume)
+      (microphone)
       (battery)
       (brightness)
       (memory)

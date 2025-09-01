@@ -30,6 +30,11 @@
     border-bottom: 2px solid #a576fc;
 }
 
+.microphone {
+    color: #ff4040;
+    border-bottom: 2px solid #ff4040;
+}
+
 .brightness {
     color: #fcf950;
     border-bottom: 2px solid #fcf950;
@@ -50,25 +55,29 @@
     border-bottom: 2px solid #F7886D;
 }
 
+tooltip {
+    background: $base-bg;
+}
+
 .baricon {
     font-size: 22px;
-    padding-right: 6px;
+    margin-right: 6px;
 }
 
 .barbutton {
     border-radius: 0px;
-    transition-duration: 200ms;
+    transition-duration: 100ms;
     &:hover {
-        border-bottom: 1px solid white;
-        border-top: 1px solid white;
+        border-bottom: 1px solid;
+        border-top: 1px solid;
     }
     &:active {
-        border-bottom: 3px solid white;
-        border-top: 3px solid white;
+        border-bottom: 3px solid;
+        border-top: 3px solid;
     }
 }
 
 .bar {
     background: $base-bg;
-    padding: 2px;
+    padding: 2px 12px;
 }
