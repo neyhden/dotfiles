@@ -5,6 +5,27 @@
     font-size: 18px;
 }
 
+.toggled {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.clock {
+    font-weight: bold;
+    min-width: 130px;
+}
+
+.workspace {
+    background: rgba(100, 100, 255, 0.2);
+    border-bottom: 2px solid white;
+    min-width: 20px;
+}
+.workspaceactive {
+    background: rgba(100, 100, 255, 0.7);
+    font-weight: bold;
+    border-bottom: 3px solid white;
+    min-width: 20px;
+}
+
 .battery {
     color: $ok-color;
     circular-progress {

@@ -41,8 +41,22 @@ while [[ $# -gt 0 ]]; do
             fi
             exit 0
             ;;
+        "hyprland")
+            WORKSPACES=$(hyprctl workspaces -j)
+            ACTIVE=$(hyprctl activeworkspace -j | jq ".id")
+            HYPRLAND="[]"
+            I=0
+            while [ $I -le 10 ]; do
+                EXISTS=$(echo $WORKSPACES | grep -q "\"id\": ${I}" && echo true || echo false)
+                ISACTIVE=$( [ $ACTIVE = $I ] && echo true || echo false )
+                HYPRLAND=$(echo $HYPRLAND | jq -c ". += [{id: ${I}, exists: ${EXISTS}, active: ${ISACTIVE}}]")
+                I=$((I + 1))
+            done
+            echo $HYPRLAND
+            exit 0
+            ;;
         *) echo "not a command"
-            shift
+            exit 1
             ;;
     esac
 done
