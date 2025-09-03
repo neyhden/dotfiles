@@ -76,12 +76,12 @@ while [[ $# -gt 0 ]]; do
                 case $1 in
                     workspace\>\>*)
                         W=$(echo $1 | grep -o "[0-9]*")
-                        HYPRLAND=$(echo $HYPRLAND | jq -c ".active = $W" | jq -c ".workspaces[$W].exists = true")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".active = $W" | jq -c ".workspaces[$(($W-1))].exists = true")
                         echo "$HYPRLAND"
                         ;;
                     destroyworkspace\>\>*)
                         W=$(echo $1 | grep -o "[0-9]*")
-                        HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$W].exists = false")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$(($W - 1))].exists = false")
                         echo "$HYPRLAND"
                         ;;
                     urgent*)

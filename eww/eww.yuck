@@ -1,5 +1,3 @@
-(defvar log "")
-
 (defwidget barbutton [?onclick ?class ?visible]
   (button
     :class "barbutton ${class}"
@@ -24,7 +22,7 @@
 (deflisten hyprland "./scripts.sh hyprland")
 (defwidget workspace [id]
   (barbutton
-    :visible { hyprland.workspaces[id].exists }
+    :visible { hyprland.workspaces[id - 1].exists }
     :class "${hyprland.active == id ? "workspaceactive" : "workspace"}"
     :onclick "hyprctl dispatch workspace ${id}"
     "${id}"
@@ -224,8 +222,6 @@
     :width "100%"
     :anchor "top center")
   :stacking "fg"
-  :windowtype "dock"
-  :wm-ignore false
   :exclusive true
   (bar)
 )
