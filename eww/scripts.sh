@@ -15,19 +15,37 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         "volume")
-            pactl subscribe | grep 'change' > /tmp/tmpshitfileunused &
-            SUB_PS=$!
-            while true; do
-                echo "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 11-12)"
-                inotifywait -q /proc/${SUB_PS}/fd/0 > /dev/null
+            wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
+            pactl subscribe \
+              | grep --line-buffered "Event 'change' on sink " \
+              | while read -r evt; 
+              do wpctl get-volume @DEFAULT_AUDIO_SINK@ \
+                  | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
             done
             ;;
         "muted")
-            pactl subscribe | grep 'change' > /tmp/tmpshitfileunused &
-            SUB_PS=$!
-            while true; do
-                echo "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep 'MUTED')"
-                inotifywait -q /proc/${SUB_PS}/fd/0 > /dev/null
+            wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED; 
+            pactl subscribe \
+              | grep --line-buffered "Event 'change' on sink " \
+              | while read -r evt; 
+              do wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED;
+            done
+            ;;
+        "mic-volume")
+            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
+            pactl subscribe \
+              | grep --line-buffered "Event 'change' on source " \
+              | while read -r evt; 
+              do wpctl get-volume @DEFAULT_AUDIO_SOURCE@ \
+                  | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
+            done
+            ;;
+        "mic-muted")
+            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED; 
+            pactl subscribe \
+              | grep --line-buffered "Event 'change' on source " \
+              | while read -r evt; 
+              do wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED;
             done
             ;;
         "touchpad")
@@ -44,17 +62,38 @@ while [[ $# -gt 0 ]]; do
         "hyprland")
             WORKSPACES=$(hyprctl workspaces -j)
             ACTIVE=$(hyprctl activeworkspace -j | jq ".id")
-            HYPRLAND="[]"
-            I=0
+            HYPRLAND="{\"active\": $ACTIVE, \"workspaces\": []}"
+            I=1
             while [ $I -le 10 ]; do
                 EXISTS=$(echo $WORKSPACES | grep -q "\"id\": ${I}" && echo true || echo false)
-                ISACTIVE=$( [ $ACTIVE = $I ] && echo true || echo false )
-                HYPRLAND=$(echo $HYPRLAND | jq -c ". += [{id: ${I}, exists: ${EXISTS}, active: ${ISACTIVE}}]")
+                W="{\"id\": ${I}, \"exists\": ${EXISTS}, \"urgent\": false}"
+                HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces += [$W]")
                 I=$((I + 1))
             done
             echo $HYPRLAND
-            exit 0
+
+            handle() {
+                case $1 in
+                    workspace\>\>*)
+                        W=$(echo $1 | grep -o "[0-9]*")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".active = $W" | jq -c ".workspaces[$W].exists = true")
+                        echo "$HYPRLAND"
+                        ;;
+                    destroyworkspace\>\>*)
+                        W=$(echo $1 | grep -o "[0-9]*")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$W].exists = false")
+                        echo "$HYPRLAND"
+                        ;;
+                    urgent*)
+                        ;;
+                    *)
+                        ;;
+                esac
+            }
+
+            socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do handle "$line"; done
             ;;
+
         *) echo "not a command"
             exit 1
             ;;

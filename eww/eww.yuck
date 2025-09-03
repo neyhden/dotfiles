@@ -21,11 +21,11 @@
   )
 )
 
-(defpoll hyprland :interval "1s" "./scripts.sh hyprland")
+(deflisten hyprland "./scripts.sh hyprland")
 (defwidget workspace [id]
   (barbutton
-    :visible { hyprland[id].exists }
-    :class "${hyprland[id].active ? "workspaceactive" : "workspace"}"
+    :visible { hyprland.workspaces[id].exists }
+    :class "${hyprland.active == id ? "workspaceactive" : "workspace"}"
     :onclick "hyprctl dispatch workspace ${id}"
     "${id}"
   )
@@ -45,13 +45,6 @@
       (workspace :id 8)
       (workspace :id 9)
       (workspace :id 10)
-      (for w in {hyprland.workspaces}
-        (barbutton
-          :class "${w.id == hyprland.active.id ? "workspaceactive" : "workspace"}"
-          :onclick "hyprctl dispatch workspace ${w.id}"
-          "${w.id}"
-        )
-      )
     )
   )
 )
@@ -67,7 +60,7 @@
 (defpoll touchpad-on :interval "3s" "[ -f /tmp/touchpad_off ] && echo 0 || echo 1")
 (defwidget toggle-touchpad []
   (barbutton
-    :class "${ touchpad-on == 1 ? "toggled workspace" : "" }"
+    :class "baricon ${ touchpad-on == 1 ? "toggled workspace" : "" }"
     :onclick "./scripts.sh touchpad"
     (image
       :icon "input-touchpad-symbolic"
@@ -126,8 +119,8 @@
   )
 )
 
-(defpoll volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f 2 | sed 's/0\\.\\|\\.\\|0\\.0//'")
-(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED; true")
+(deflisten volume "./scripts.sh volume")
+(deflisten muted "./scripts.sh muted")
 (defwidget volume []
   (metric
     :class "volume"
@@ -140,8 +133,8 @@
   )
 )
 
-(defpoll mic-volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d ' ' -f 2 | sed 's/0\\.\\|\\.\\|0\\.0//'")
-(defpoll mic-muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED; true")
+(deflisten mic-volume "./scripts.sh mic-volume")
+(deflisten mic-muted "./scripts.sh mic-muted")
 (defwidget microphone []
   (metric
     :class "microphone"
