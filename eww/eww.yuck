@@ -10,11 +10,14 @@
 )
 
 (defpoll time :interval "1s" :initial "00 : 00 : 00" "date +'%H : %M : %S'")
+(defpoll date :interval "10s" "date +'%e %B %Y, %A'")
 (defwidget clock []
   (barbutton
     :class "clock"
+    :onclick "eww open --toggle rightpanel"
     (label
       :text "${time}"
+      :tooltip "${date}"
     )
   )
 )
@@ -185,7 +188,13 @@
   )
 )
 
-(defwidget bar []
+(defwindow bar
+  :monitor 0
+  :geometry (geometry
+    :width "100%"
+    :anchor "top center")
+  :stacking "fg"
+  :exclusive true
   (centerbox
     :class "bar"
     (box
@@ -216,12 +225,16 @@
   )
 )
 
-(defwindow bar
+(defwindow rightpanel
   :monitor 0
   :geometry (geometry
-    :width "100%"
-    :anchor "top center")
+    :anchor "right top"
+  )
   :stacking "fg"
-  :exclusive true
-  (bar)
+  :exclusive false
+  :namespace "slidedown"
+  (box
+    :class "rightpanel"
+    (calendar)
+  )
 )

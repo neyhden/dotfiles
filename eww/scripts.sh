@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         "volume")
-            wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
+            echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//")
             pactl subscribe \
               | grep --line-buffered "Event 'change' on sink " \
               | while read -r evt; 
@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
             done
             ;;
         "muted")
-            wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED; 
+            echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -c MUTED)
             pactl subscribe \
               | grep --line-buffered "Event 'change' on sink " \
               | while read -r evt; 
@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do
             done
             ;;
         "mic-volume")
-            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//"
+            echo $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | cut -d ' ' -f 2 | sed "s/0\\.\\|\\.\\|0\\.0//")
             pactl subscribe \
               | grep --line-buffered "Event 'change' on source " \
               | while read -r evt; 
@@ -41,7 +41,7 @@ while [[ $# -gt 0 ]]; do
             done
             ;;
         "mic-muted")
-            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED; 
+            echo $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED)
             pactl subscribe \
               | grep --line-buffered "Event 'change' on source " \
               | while read -r evt; 
