@@ -9,13 +9,15 @@
   )
 )
 
+(defvar hover-clock false)
 (defpoll time :interval "1s" :initial "00 : 00 : 00" "date +'%H : %M : %S'")
 (defpoll date :interval "10s" "date +'%e %B %Y, %A'")
 (defwidget clock []
-  (barbutton
-    :class "clock"
-    :onclick "eww open --toggle rightpanel"
+  (eventbox
+    :onhover "eww update hover-clock=true; eww open info"
+    :onhoverlost "eww update hover-clock=false"
     (label
+      :class "clock"
       :text "${time}"
       :tooltip "${date}"
     )
@@ -225,16 +227,26 @@
   )
 )
 
-(defwindow rightpanel
+(defvar hover-info false)
+(defwindow info
   :monitor 0
   :geometry (geometry
+    :y "-32px"
     :anchor "right top"
   )
   :stacking "fg"
   :exclusive false
   :namespace "slidedown"
-  (box
-    :class "rightpanel"
-    (calendar)
+  (eventbox
+    :onhover "eww update hover-info=true"
+    :onhoverlost "eww update hover-info=false; eww close info"
+    :class ""
+    (box
+      :class "barpadding"
+      (box
+        :class "infor"
+        (calendar)
+      )
+    )
   )
 )
