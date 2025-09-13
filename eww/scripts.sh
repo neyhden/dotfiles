@@ -3,10 +3,22 @@
 BRIGHTNESS_FILE=/sys/class/backlight/intel_backlight/brightness
 MAX_BRIGHTNESS_FILE=/sys/class/backlight/intel_backlight/max_brightness
 
+TOUCHPAD_FILE=/tmp/touchpad_state
 VOLUME_FILE=./vol.txt
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        "touchpad")
+            if [ ! -f $TOUCHPAD_FILE ]; then
+                touch $TOUCHPAD_FILE
+                echo "on" > $TOUCHPAD_FILE
+            fi
+            while true; do
+                cat $TOUCHPAD_FILE
+                inotifywait -q $TOUCHPAD_FILE > /dev/null
+            done
+            exit 0
+            ;;
         "brightness")
             while true; do
                 echo "$(( $(cat $BRIGHTNESS_FILE) * 100 / $(cat $MAX_BRIGHTNESS_FILE) ))"
@@ -48,14 +60,14 @@ while [[ $# -gt 0 ]]; do
               do wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -c MUTED;
             done
             ;;
-        "touchpad")
-            TOUCHPAD_PATH=/tmp/touchpad_off
-            if [ -f $TOUCHPAD_PATH ]; then
-                rm $TOUCHPAD_PATH
-                hyprctl keyword 'device[cust0001:00-04f3:30fa-touchpad]:enabled' true
-            else
-                touch $TOUCHPAD_PATH
+        "toggle-touchpad")
+            TOUCHPAD_STATE=$(cat $TOUCHPAD_FILE)
+            if [ $TOUCHPAD_STATE = "on" ]; then
                 hyprctl keyword 'device[cust0001:00-04f3:30fa-touchpad]:enabled' false
+                echo "off" > $TOUCHPAD_FILE
+            else
+                hyprctl keyword 'device[cust0001:00-04f3:30fa-touchpad]:enabled' true
+                echo "on" > $TOUCHPAD_FILE
             fi
             exit 0
             ;;

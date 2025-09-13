@@ -9,6 +9,17 @@
   )
 )
 
+(defwidget toolbutton [?onclick ?class ?visible]
+  (button
+    :class "toolbutton ${class}"
+    :onclick onclick
+    :visible visible
+    (box
+      (children)
+    )
+  )
+)
+
 (defvar hover-clock false)
 (defpoll time :interval "1s" :initial "00 : 00 : 00" "date +'%H : %M : %S'")
 (defpoll date :interval "10s" "date +'%e %B %Y, %A'")
@@ -53,47 +64,41 @@
 )
 
 (defwidget color-picker []
-  (barbutton
-    :class "baricon"
+  (toolbutton
     :onclick "hyprpicker -a -n &"
-    " "
+    "󰈊"
   )
 )
 
-(defpoll touchpad-on :interval "3s" "[ -f /tmp/touchpad_off ] && echo 0 || echo 1")
+(deflisten touchpad-state "./scripts.sh touchpad")
 (defwidget toggle-touchpad []
-  (barbutton
-    :class "baricon ${ touchpad-on == 1 ? "toggled workspace" : "" }"
-    :onclick "./scripts.sh touchpad"
-    (image
-      :icon "input-touchpad-symbolic"
+  (toolbutton
+    :class "baricon ${ touchpad-state == "on" ? "toggled workspace" : "" }"
+    :onclick "./scripts.sh toggle-touchpad"
+    "󰈷"
+  )
+)
+
+(defvar hover-cog false)
+(defwidget cog []
+  (eventbox
+    :onhover "eww open tools"
+    (box
+      :class "cog"
+      (label
+        :text "" 
+      )
     )
   )
 )
 
-(defvar reveal-tools false)
 (defwidget tools []
-  (eventbox
-    :onhover "eww update reveal-tools=true"
-    :onhoverlost "eww update reveal-tools=false"
-    (box
-      :spacing 30
-      :space-evenly false
-      (label
-        :text "" 
-      )
-      (revealer
-        :transition "slideright"
-        :duration "200ms"
-        :reveal reveal-tools
-        (box
-          :spacing 10
-          :space-evenly false
-          (color-picker)
-          (toggle-touchpad)
-        )
-      )
-    )
+  (box
+    :class "toolbar"
+    :spacing 30
+    :space-evenly false
+    (color-picker)
+    (toggle-touchpad)
   )
 )
 
@@ -204,7 +209,7 @@
       :space-evenly false
       :spacing 6
       :halign "start"
-      (tools)
+      (cog)
     )
     (box
       :class "bar-box"
@@ -227,7 +232,26 @@
   )
 )
 
-(defvar hover-info false)
+(defwindow tools
+  :monitor 0
+  :geometry (geometry
+    :y "-32px"
+    :anchor "left top"
+  )
+  :stacking "fg"
+  :exclusive false
+  :namespace "slidedown"
+  (eventbox
+    :onhoverlost "eww close tools"
+    (box
+      :class "barpadding"
+      (box
+        (tools)
+      )
+    )
+  )
+)
+
 (defwindow info
   :monitor 0
   :geometry (geometry
@@ -238,9 +262,7 @@
   :exclusive false
   :namespace "slidedown"
   (eventbox
-    :onhover "eww update hover-info=true"
-    :onhoverlost "eww update hover-info=false; eww close info"
-    :class ""
+    :onhoverlost "eww close info"
     (box
       :class "barpadding"
       (box

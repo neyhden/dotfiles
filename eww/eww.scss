@@ -84,6 +84,26 @@ tooltip {
     padding: 0px;
 }
 
+.cog {
+    margin: 0px 20px 0px 20px;
+}
+
+.toolbutton {
+    border-bottom: 1px solid transparent;
+    &:hover {
+        border-bottom: 1px solid white
+    }
+    label {
+        font-size: 32px;
+        padding-right: 6px;
+    }
+}
+
+.toolbar {
+    background: $base-bg;
+    padding: 10px;
+}
+
 .barpadding {
     padding-top: 32px;
     background: transparent;
