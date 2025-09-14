@@ -39,7 +39,7 @@
 (defwidget workspace [id]
   (barbutton
     :visible { hyprland.workspaces[id - 1].exists }
-    :class "${hyprland.active == id ? "workspaceactive" : "workspace"}"
+    :class "${hyprland.active == id ? "workspaceactive" : hyprland.workspaces[id - 1].urgent ? "workspaceurgent" : "workspace"}"
     :onclick "hyprctl dispatch workspace ${id}"
     "${id}"
   )

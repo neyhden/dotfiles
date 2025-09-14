@@ -14,6 +14,26 @@
     min-width: 130px;
 }
 
+calendar {
+    font-size: 20px;
+    &:indeterminate {
+        color: rgba(255, 255, 255, 0.3);
+    }
+    &:selected {
+        border-radius: 50%;
+        background: blue;
+    }
+    &.highlight {
+        color: #8684A9;
+    }
+    &.header {
+        color: red;
+    }
+    &.button {
+        color: red;
+    }
+}
+
 .workspace {
     background: rgba(100, 100, 255, 0.2);
     border-bottom: 2px solid white;
@@ -22,6 +42,11 @@
 .workspaceactive {
     background: rgba(100, 100, 255, 0.7);
     font-weight: bold;
+    border-bottom: 3px solid white;
+    min-width: 20px;
+}
+.workspaceurgent {
+    background: rgba(255, 100, 100, 0.7);
     border-bottom: 3px solid white;
     min-width: 20px;
 }

@@ -88,6 +88,11 @@ while [[ $# -gt 0 ]]; do
                 case $1 in
                     workspace\>\>*)
                         W=$(echo $1 | grep -o "[0-9]*")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".active = $W | .workspaces[$W - 1].exists = true | .workspaces[$W - 1].urgent = false")
+                        echo "$HYPRLAND"
+                        ;;
+                    focusedmon\>\>*)
+                        W=$(echo $1 | cut -d ',' -f 2 | grep -o "[0-9]*")
                         HYPRLAND=$(echo $HYPRLAND | jq -c ".active = $W" | jq -c ".workspaces[$(($W-1))].exists = true")
                         echo "$HYPRLAND"
                         ;;
@@ -96,7 +101,11 @@ while [[ $# -gt 0 ]]; do
                         HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$(($W - 1))].exists = false")
                         echo "$HYPRLAND"
                         ;;
-                    urgent*)
+                    urgent\>\>*)
+                        ADDR=$(echo $1 | cut -d '>' -f 3)
+                        W=$(hyprctl clients -j | jq -c ".[] | select(.address == \"0x${ADDR}\") | .workspace.id")
+                        HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$W - 1].urgent = true")
+                        echo $HYPRLAND
                         ;;
                     *)
                         ;;
