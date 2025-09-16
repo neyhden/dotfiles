@@ -9,17 +9,6 @@
   )
 )
 
-(defwidget toolbutton [?onclick ?class ?visible]
-  (button
-    :class "toolbutton ${class}"
-    :onclick onclick
-    :visible visible
-    (box
-      (children)
-    )
-  )
-)
-
 (defvar hover-clock false)
 (defpoll time :interval "1s" :initial "00 : 00 : 00" "date +'%H : %M : %S'")
 (defpoll date :interval "10s" "date +'%e %B %Y, %A'")
@@ -63,6 +52,18 @@
   )
 )
 
+(defwidget toolbutton [?onclick ?class ?visible]
+  (button
+    :class "toolbutton ${class}"
+    :onclick onclick
+    :visible visible
+    (box
+      (children)
+    )
+  )
+)
+
+
 (defwidget color-picker []
   (toolbutton
     :onclick "hyprpicker -a -n &"
@@ -73,7 +74,7 @@
 (deflisten touchpad-state "./scripts.sh touchpad")
 (defwidget toggle-touchpad []
   (toolbutton
-    :class "baricon ${ touchpad-state == "on" ? "toggled workspace" : "" }"
+    :class "baricon ${ touchpad-state == "on" ? "active" : "" }"
     :onclick "./scripts.sh toggle-touchpad"
     "󰈷"
   )

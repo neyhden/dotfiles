@@ -114,19 +114,32 @@ tooltip {
 }
 
 .toolbutton {
-    border-bottom: 1px solid transparent;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 0px 10px 0px 10px;
+    transition-duration: 100ms;
     &:hover {
-        border-bottom: 1px solid white
+        border-bottom: 2px solid white;
+        border-top: 2px solid white;
+    }
+    &:active {
+        border-bottom: 3px solid white;
+        border-top: 3px solid white;
     }
     label {
         font-size: 32px;
-        padding-right: 6px;
+        padding-right: 5px;
+    }
+    &.active {
+        border-bottom-color: white;
+        background: rgba(100, 100, 255, 0.5);
     }
 }
 
 .toolbar {
     background: $base-bg;
     padding: 10px;
+    min-height: 50px;
 }
 
 .barpadding {
