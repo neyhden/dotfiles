@@ -104,7 +104,9 @@ while [[ $# -gt 0 ]]; do
                     urgent\>\>*)
                         ADDR=$(echo $1 | cut -d '>' -f 3)
                         W=$(hyprctl clients -j | jq -c ".[] | select(.address == \"0x${ADDR}\") | .workspace.id")
-                        HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$W - 1].urgent = true")
+                        if [ $(echo $HYPRLAND | jq -c ".active") != $W ]; then
+                            HYPRLAND=$(echo $HYPRLAND | jq -c ".workspaces[$W - 1].urgent = true")
+                        fi
                         echo $HYPRLAND
                         ;;
                     *)
