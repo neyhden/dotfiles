@@ -268,7 +268,15 @@
       :class "barpadding"
       (box
         :class "infor"
+        :orientation "vertical"
+        :space-evenly false
         (calendar)
+        (for tempkey in { jq(EWW_TEMPS, "keys") }
+          (label
+            :show-truncated false
+            :text "${tempkey}: ${EWW_TEMPS[tempkey]}ºC"
+          )
+        )
       )
     )
   )
