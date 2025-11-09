@@ -1,11 +1,11 @@
 vim.cmd("set expandtab")
-vim.cmd("set tabstop=4")
-vim.cmd("set softtabstop=4")
-vim.cmd("set shiftwidth=4")
+vim.cmd("set tabstop=2")
+vim.cmd("set softtabstop=2")
+vim.cmd("set shiftwidth=2")
 vim.cmd("set noswapfile")
 vim.cmd("set number")
 vim.cmd("set cindent")
-vim.cmd("set cinoptions=4")
+vim.cmd("set cinoptions=2")
 vim.cmd("set fillchars=eob:\\ ")
 vim.cmd("set nowritebackup")
 vim.cmd("tnoremap <Esc> <C-\\><C-n>")
@@ -43,7 +43,7 @@ augroup('setIndent', { clear = true }) -- Set indentation depending on filetype
 autocmd('Filetype', {
     group = 'setIndent',
     pattern = { 'css', 'scss', 'sass' },
-    command = 'setlocal shiftwidth=4 tabstop=4 softtabstop=4 cinoptions=4'
+    command = 'setlocal shiftwidth=2 tabstop=2 softtabstop=2 cinoptions=2'
 })
 autocmd('Filetype', {
     group = 'setIndent',
