@@ -1,9 +1,10 @@
 import app from "ags/gtk4/app"
 import style from "./style.scss"
-import Bar from "./widget/Bar"
+import Bar from "./widget/bar"
 
 app.start({
   css: style,
+  icons: "./icons/",
   main() {
     app.get_monitors().map(Bar)
   },
