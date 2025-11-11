@@ -15,6 +15,10 @@ return {
         "nordic",
         "onehalf-lush",
         "onehalf-lush-dark",
+        "tokyonight-day",
+        "tokyonight-moon",
+        "tokyonight-night",
+        "tokyonight-storm",
       },
       livePreview = true,
     })
