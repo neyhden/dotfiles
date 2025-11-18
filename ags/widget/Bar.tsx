@@ -3,7 +3,7 @@ import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { createPoll } from "ags/time"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
-  const time = createPoll("", 1000, "date")
+  const time = createPoll("", 1000, "date +'%H:%M:%S'")
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
   return (
@@ -25,6 +25,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
         <box $type="end">
           <label label={"hi"} />
+          <menubutton>
+            <label label={"hi"} />
+          </menubutton>
         </box>
       </centerbox>
     </window>
