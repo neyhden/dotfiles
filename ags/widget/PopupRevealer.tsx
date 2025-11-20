@@ -1,51 +1,63 @@
 import { createState } from "ags"
 import { Gtk } from "ags/gtk4"
+import { timeout, Timer } from "ags/time"
 
 type Props = {
-  open?: boolean,
-  children?: JSX.Element | Array<JSX.Element>,
+  children: Array<JSX.Element>,
 }
 
 export default (p: Props) => {
   const [visible, setVisible] = createState(false)
   const [reveal, setReveal] = createState(false)
   let popref: Gtk.Popover | null = null
+  let hideTimeout: Timer
 
   const show = () => {
+    if (hideTimeout) hideTimeout.cancel()
     setVisible(true)
     setReveal(true)
   }
   
   const hide = () => {
-    setReveal(false)
+    hideTimeout = timeout(200, () => setReveal(false))
   }
 
-
   return (
-    <popover
-      visible={visible}
-      hasArrow={false}
-      autohide={false}
-      onShow={() => {
-        setVisible(true)
-      }}
-      onHide={() => {
-        setVisible(false)
-      }}
-      $={self => {
-        Object.assign(self, {popup: show, popdown: hide})
-        popref = self
-      }}
-    >
-      <revealer
-        transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-        revealChild={visible}
-        onNotifyChildRevealed={self => {
-          setVisible(self.childRevealed)
+    <box>
+      <Gtk.EventControllerMotion
+        onEnter={show}
+        onLeave={hide}
+      />
+      { p.children[0] }
+      <popover
+        visible={visible}
+        hasArrow={false}
+        autohide={false}
+        onShow={() => {
+          setVisible(true)
+        }}
+        onHide={() => {
+          setVisible(false)
+        }}
+        $={self => {
+          Object.assign(self, {popup: show, popdown: hide})
+          popref = self
         }}
       >
-        { p.children }
-      </revealer>
-    </popover>
+        <revealer
+          transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+          revealChild={reveal}
+          onNotifyChildRevealed={self => {
+            setVisible(self.childRevealed)
+          }}
+        >
+          <Gtk.EventControllerMotion
+            onEnter={show}
+            onLeave={hide}
+          />
+          { p.children[1] }
+        </revealer>
+      </popover>
+    </box>
   )
 }

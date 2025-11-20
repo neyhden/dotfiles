@@ -1,19 +1,7 @@
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-// ---
-$fg-color: #{"@theme_fg_color"};
-$bg-color: #{"@theme_bg_color"};
-// ---
-
-window {
-  background: transparent;
+* {
+  all: unset;
 }
 
-centerbox {
-  background: $bg-color;
-  color: $fg-color;
-}
-
-.quickpanelbox {
-  min-width: 10px;
-  background: rgba(0, 0, 0, 0.1)
+popover {
+  min-height: 10px;
 }
