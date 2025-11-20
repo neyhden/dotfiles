@@ -14,6 +14,8 @@ export default (gdkmonitor: Gdk.Monitor) => {
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT }
+      marginLeft={10}
+      marginRight={10}
       application={app}
     >
       <label label={"hi"} />
@@ -27,7 +29,9 @@ export default (gdkmonitor: Gdk.Monitor) => {
         <box $type="end">
           <PopupRevealer>
             <Clock />
-            <label label={"hisadasd\nasdasdads\nadsasdasd\nasdasd"} />
+            <box>
+              <label label={"hisadasd\nasdasdads\nadsasdasd\nasdasd"} />
+            </box>
           </PopupRevealer>
         </box>
       </centerbox>

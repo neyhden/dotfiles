@@ -44,17 +44,18 @@ export default (p: Props) => {
           popref = self
         }}
       >
+        <Gtk.EventControllerMotion
+          onEnter={show}
+          onLeave={hide}
+        />
         <revealer
           transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+          transitionDuration={200}
           revealChild={reveal}
           onNotifyChildRevealed={self => {
             setVisible(self.childRevealed)
           }}
         >
-          <Gtk.EventControllerMotion
-            onEnter={show}
-            onLeave={hide}
-          />
           { p.children[1] }
         </revealer>
       </popover>
