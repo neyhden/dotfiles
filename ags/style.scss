@@ -5,7 +5,6 @@ $color: #FFFFCC;
   all: unset;
   font-size: 18px;
   font-weight: bold;
-  font-family: FiraCodeNerdFontMono;
 }
 
 popover {
@@ -19,8 +18,12 @@ popover {
 
 #bar {
   background: $bg;
-  border: 3px solid $color;
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  padding: 5px 20px 5px 20px;
+}
+
+#right {
+  background: $bg;
+}
+
+.clock {
+  min-width: 150px;
 }

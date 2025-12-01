@@ -1,6 +1,5 @@
 import app from "ags/gtk4/app"
-import { Astal, Gdk } from "ags/gtk4"
-import PopupRevealer from "./PopupRevealer"
+import { Astal, Gdk, Gtk } from "ags/gtk4"
 import Clock from "./Clock"
 
 
@@ -14,11 +13,8 @@ export default (gdkmonitor: Gdk.Monitor) => {
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT }
-      marginLeft={10}
-      marginRight={10}
       application={app}
     >
-      <label label={"hi"} />
       <centerbox>
         <box $type="start">
           <label label={"hi"} />
@@ -27,12 +23,11 @@ export default (gdkmonitor: Gdk.Monitor) => {
           <label label={"hi"} />
         </box>
         <box $type="end">
-          <PopupRevealer>
-            <Clock />
-            <box>
-              <label label={"hisadasd\nasdasdads\nadsasdasd\nasdasd"} />
-            </box>
-          </PopupRevealer>
+          <Clock>
+            <Gtk.EventControllerMotion
+              onEnter={() => app.toggle_window("right")}
+            />
+          </Clock>
         </box>
       </centerbox>
     </window>
