@@ -137,8 +137,8 @@
     :showvalue {muted == 0}
     :label {muted == 1 ? "" : ""}
     :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-    :onscrollup "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
-    :onscrolldown "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+    :onscrollup "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+    :onscrolldown "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
   )
 )
 
