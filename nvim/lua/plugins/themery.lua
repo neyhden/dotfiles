@@ -23,11 +23,6 @@ return {
       livePreview = true,
     })
 		vim.keymap.set("n", "<leader>T", ":Themery<CR>", {})
-
-    -- Themery block
--- This block will be replaced by Themery.
-vim.cmd("colorscheme tokyonight-night")
--- end themery block
   end
 }
 

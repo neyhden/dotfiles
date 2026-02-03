@@ -26,36 +26,15 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
-
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-			})
-            lspconfig.clangd.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.cssls.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.pyright.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.html.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.rust_analyzer.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.solargraph.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.somesass_ls.setup({
-                capabilities = capabilities,
-            })
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("ts_ls")
+      vim.lsp.enable("clangd")
+      vim.lsp.enable("cssls")
+      vim.lsp.enable("pyright")
+      vim.lsp.enable("html")
+      vim.lsp.enable("rust_analyzer")
+      vim.lsp.enable("solargraph")
+      vim.lsp.enable("somesass_ls")
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})

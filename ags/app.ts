@@ -12,7 +12,6 @@ app.start({
   css: style,
   icons: "./icons/",
   main() {
-
     app.get_monitors().map(Bar)
     app.get_monitors().map(RightPanel)
   },

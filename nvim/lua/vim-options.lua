@@ -28,7 +28,7 @@ vim.keymap.set({"n", "v"}, "gb", "[{", {})
 vim.keymap.set({"n", "v"}, "ge", "]}", {})
 
 vim.g.mapleader = " "
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Autocmds
 local autocmd = vim.api.nvim_create_autocmd
