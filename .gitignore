@@ -17,3 +17,6 @@
 
 !wofi/
 !wofi/**/*
+
+!kitty/
+!kitty/**/*
