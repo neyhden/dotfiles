@@ -1,24 +1,24 @@
 return {
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		config = function()
 			require("mason").setup()
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
 					"ts_ls",
 					"clangd",
-                    "cssls",
-                    "pyright",
-                    "html",
-                    "rust_analyzer",
-                    "solargraph",
-                    "somesass_ls",
+          "cssls",
+          "pyright",
+          "html",
+          "rust_analyzer",
+          "somesass_ls",
+          "jdtls",
 				},
 			})
 		end,
@@ -33,8 +33,8 @@ return {
       vim.lsp.enable("pyright")
       vim.lsp.enable("html")
       vim.lsp.enable("rust_analyzer")
-      vim.lsp.enable("solargraph")
       vim.lsp.enable("somesass_ls")
+      vim.lsp.enable("jdtls")
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})

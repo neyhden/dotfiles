@@ -28,21 +28,17 @@ return {
     lazy = false,
     priority = 1000,
     config = function ()
-      ---@type dracula
       local dracula = require "dracula"
       dracula.setup({
         transparent = false,
-        on_colors = function (colors, color)
-          ---@type dracula.palette
+        on_colors = function (_, _)
           return {
             -- override or create new colors
             mycolor = "#ffffff",
           }
         end,
-        on_highlights = function (colors, color)
-          ---@type dracula.highlights
+        on_highlights = function (colors, _)
           return {
-            ---@type vim.api.keyset.highlight
             Normal = { fg = colors.mycolor }
           }
         end,
